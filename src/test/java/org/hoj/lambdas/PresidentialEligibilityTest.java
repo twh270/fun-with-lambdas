@@ -13,14 +13,14 @@ public class PresidentialEligibilityTest {
 
     @Test
     public void rejectsPersonUnderAgeLimit() {
-        Person person = new Person(34, CitizenshipStatus.NATURAL_BORN);
+        Person person = new Person(34, CitizenshipStatus.NATURAL_BORN, 14);
 
         assertFalse(testObj.isEligible(person));
     }
 
     @Test
     public void acceptsPersonOverAgeLimit() {
-        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN);
+        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN, 14);
 
         assertTrue(testObj.isEligible(person));
     }
@@ -35,8 +35,22 @@ public class PresidentialEligibilityTest {
         CitizenshipStatus citizenshipStatus = CitizenshipStatus.valueOf(statusString);
         boolean isAccepted = Boolean.valueOf(acceptedString);
 
-        Person person = new Person(35, citizenshipStatus);
+        Person person = new Person(35, citizenshipStatus, 14);
 
         assertEquals(isAccepted, testObj.isEligible(person));
+    }
+
+    @Test
+    public void rejectsPersonWithTooFewYearsOfResidency() {
+        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN, 13);
+
+        assertFalse(testObj.isEligible(person));
+    }
+
+    @Test
+    public void acceptsPersonWithEnoughYearsOfResidency() {
+        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN, 14);
+
+        assertTrue(testObj.isEligible(person));
     }
 }
