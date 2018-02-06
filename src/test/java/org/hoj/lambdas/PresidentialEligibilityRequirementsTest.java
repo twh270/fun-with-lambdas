@@ -13,14 +13,14 @@ public class PresidentialEligibilityRequirementsTest {
 
     @Test
     public void rejectsPersonUnderAgeLimit() {
-        Person person = new Person(34, CitizenshipStatus.NATURAL_BORN, 14, new PresidentialServiceHistory(0, 0));
+        Person person = PersonObjectMother.builder().withAge(34).build();
 
         assertFalse(testObj.isEligible(person));
     }
 
     @Test
     public void acceptsPersonOverAgeLimit() {
-        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN, 14, new PresidentialServiceHistory(0, 0));
+        Person person = PersonObjectMother.builder().withAge(35).build();
 
         assertTrue(testObj.isEligible(person));
     }
@@ -35,21 +35,21 @@ public class PresidentialEligibilityRequirementsTest {
         CitizenshipStatus citizenshipStatus = CitizenshipStatus.valueOf(statusString);
         boolean isAccepted = Boolean.valueOf(acceptedString);
 
-        Person person = new Person(35, citizenshipStatus, 14, new PresidentialServiceHistory(0, 0));
+        Person person = PersonObjectMother.builder().withCitizenShipStatus(citizenshipStatus).build();
 
         assertEquals(isAccepted, testObj.isEligible(person));
     }
 
     @Test
     public void rejectsPersonWithTooFewYearsOfResidency() {
-        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN, 13, new PresidentialServiceHistory(0, 0));
+        Person person = PersonObjectMother.builder().withYearsOfResidency(13).build();
 
         assertFalse(testObj.isEligible(person));
     }
 
     @Test
     public void acceptsPersonWithEnoughYearsOfResidency() {
-        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN, 14, new PresidentialServiceHistory(0, 0));
+        Person person = PersonObjectMother.builder().withYearsOfResidency(14).build();
 
         assertTrue(testObj.isEligible(person));
     }
@@ -68,7 +68,7 @@ public class PresidentialEligibilityRequirementsTest {
         int actingAsYears = Integer.valueOf(actingAsYearsString);
         boolean isAccepted = Boolean.valueOf(acceptedString);
 
-        Person person = new Person(35, CitizenshipStatus.NATURAL_BORN, 14, new PresidentialServiceHistory(termsHeld, actingAsYears));
+        Person person = PersonObjectMother.builder().withPresidentialServiceHistory(new PresidentialServiceHistory(termsHeld, actingAsYears)).build();
 
         assertEquals(isAccepted, testObj.isEligible(person));
     }
