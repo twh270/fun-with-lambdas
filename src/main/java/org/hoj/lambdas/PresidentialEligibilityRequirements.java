@@ -1,17 +1,18 @@
 package org.hoj.lambdas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PresidentialEligibilityRequirements {
-    private final PresidentialEligibility2 presidentialEligibility;
-    private final EligibilityRule[] eligibilityRules;
+    private final EligibilityTest<Person> presidentialEligibility;
+    private final List<EligibilityRule<Person>> eligibilityRules = new ArrayList<>();
 
     public PresidentialEligibilityRequirements() {
-        this.eligibilityRules = new EligibilityRule[] {
-                person -> person.getAge() >= 35,
-                person -> person.getCitizenshipStatus() == CitizenshipStatus.NATURAL_BORN,
-                person -> person.getYearsOfResidency() >= 14,
-                this::isPresidentialServiceHistoryEligible
-        };
-        this.presidentialEligibility = new PresidentialEligibility2();
+        eligibilityRules.add(person -> person.getAge() >= 35);
+        eligibilityRules.add(person -> person.getCitizenshipStatus() == CitizenshipStatus.NATURAL_BORN);
+        eligibilityRules.add(person -> person.getYearsOfResidency() >= 14);
+        eligibilityRules.add(this::isPresidentialServiceHistoryEligible);
+        this.presidentialEligibility = new EligibilityTest<>();
     }
 
     public boolean isEligible(Person person) {
