@@ -1,4 +1,4 @@
-package org.hoj.lambdas;
+package org.hoj.lambdas.eligibility;
 
 public class EligibilityTest<T> {
     public boolean isEligible(T target, Iterable<EligibilityRule<T>> rules) {

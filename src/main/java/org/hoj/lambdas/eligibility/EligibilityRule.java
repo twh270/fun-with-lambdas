@@ -1,4 +1,4 @@
-package org.hoj.lambdas;
+package org.hoj.lambdas.eligibility;
 
 import java.util.function.Function;
 

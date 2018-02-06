@@ -1,5 +1,8 @@
 package org.hoj.lambdas;
 
+import org.hoj.lambdas.eligibility.EligibilityRule;
+import org.hoj.lambdas.eligibility.EligibilityTest;
+
 import java.util.ArrayList;
 import java.util.List;
 
