@@ -1,25 +1,22 @@
 package org.hoj.lambdas;
 
 import org.hoj.lambdas.eligibility.EligibilityRule;
-import org.hoj.lambdas.eligibility.EligibilityTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PresidentialEligibilityRequirements {
-    private final EligibilityTest<Person> presidentialEligibility;
+public class PresidentialEligibilityRules {
     private final List<EligibilityRule<Person>> eligibilityRules = new ArrayList<>();
 
-    public PresidentialEligibilityRequirements() {
+    public PresidentialEligibilityRules() {
         eligibilityRules.add(person -> person.getAge() >= 35);
         eligibilityRules.add(person -> person.getCitizenshipStatus() == CitizenshipStatus.NATURAL_BORN);
         eligibilityRules.add(person -> person.getYearsOfResidency() >= 14);
         eligibilityRules.add(this::isPresidentialServiceHistoryEligible);
-        this.presidentialEligibility = new EligibilityTest<>();
     }
 
-    public boolean isEligible(Person person) {
-        return presidentialEligibility.isEligible(person, eligibilityRules);
+    public List<EligibilityRule<Person>> getEligibilityRules() {
+        return eligibilityRules;
     }
 
     private boolean isPresidentialServiceHistoryEligible(Person person) {
@@ -29,5 +26,4 @@ public class PresidentialEligibilityRequirements {
         if (presidentialServiceHistory.getActingAsYears() >= 3) return false;
         return true;
     }
-
 }
